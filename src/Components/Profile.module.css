@@ -1,0 +1,10 @@
+.content{
+    grid-area: c;
+    background-color: dodgerblue;
+}
+.content img {
+    width: 100%;
+}
+.item{
+    color: white;
+}
