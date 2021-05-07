@@ -4,4 +4,12 @@
 }
 .item{
     color: black;
+
+}
+.item a {
+    color: white;
+}
+.item a.activeLink {
+    color: gold;
+    border-color: green;
 }
