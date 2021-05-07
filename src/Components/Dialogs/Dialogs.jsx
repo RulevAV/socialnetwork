@@ -2,38 +2,41 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import {NavLink} from "react-router-dom";
 
-const Messege = (props) =>{
+const  DialogItem = (props) =>{
+    return <div className={s.dialog}>
+        <NavLink to={"/dialogs/"+props.id}> {props.name} </NavLink>
+    </div>
+}
+
+const Messege = (props) => {
     return <div className={s.message}>{props.message}</div>
 }
-const Dialogs = (props) =>{
+const Dialogs = (props) => {
+
+    let dialogsData = [
+        {id: 1, name: "Andrey"},
+        {id: 2, name: "Egor"},
+        {id: 3, name: "Petr"},
+        {id: 4, name: "Sveta"},
+        {id: 5, name: "Elena"},
+        {id: 6, name: "Victor"},
+    ];
+    let dialogsmessages = [
+        {id: 1, message: "asd"},
+        {id: 2, message: "vcgh"},
+        {id: 3, message: "1234"},
+    ];
+    
+    let dialogsElements = dialogsData.map(dialog=><DialogItem name={dialog.name} id={dialog.id}/>);
+    let messages = dialogsmessages.map(dialog=><Messege message={dialog.message} id={dialog.id}/>);
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <div className={s.dialog + ' ' + s.active}>
-                 <NavLink to="/dialogs/1">   Andrey </NavLink>
-                </div>
-
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/2">   Egor </NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/3">   Petr </NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/4">   Sveta </NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/5">   Elena </NavLink>
-                </div>
-                <div className={s.dialog}>
-                    <NavLink to="/dialogs/6">   Victor </NavLink>
-                </div>
+                {dialogsElements}
 
             </div>
             <div className={s.messages}>
-                <Messege message="hi"/>
-                <Messege message="asd"/>
-                <Messege message="tyr"/>
+                {messages}
             </div>
         </div>
     )
