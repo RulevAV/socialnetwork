@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state, {addPost, subscribe, updaeNewPostText} from './redux/state';
+import store from './redux/state';
 
 
 let renderEntireTree = ()=>{
-    ReactDOM.render(<App state={state} addPost={addPost} updaeNewPostText={updaeNewPostText}/>,
+    ReactDOM.render(<App state={store.getState()} addPost={store.addPost.bind(store)}
+                         updateNewPostText={store.updateNewPostText.bind(store)}/>,
         document.getElementById('root')
     );
 }
 
-subscribe(renderEntireTree);
+store.subscribe(renderEntireTree);
 
 renderEntireTree();
 

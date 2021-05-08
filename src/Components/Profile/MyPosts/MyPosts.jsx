@@ -9,11 +9,12 @@ const MyPosts = (props) => {
         //let text = newPostElemen.current.value;
         //props.addPost(text);
         props.addPost();
-        props.updaeNewPostText('')
+        props.updateNewPostText('')
     }
     let onPostChange = ()=>{
         let text = newPostElemen.current.value;
-        props.updaeNewPostText(text)
+        console.log(props)
+        props.updateNewPostText(text)
     }
     return <div>
         <h3>My post</h3>
