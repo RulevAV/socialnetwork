@@ -4,7 +4,7 @@ import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 
 let reducer = combineReducers({
-    profile:profileReducer,
+    profilePage:profileReducer,
     messagesPage:dialogsReducer,
     sidebarReducer,
 });
