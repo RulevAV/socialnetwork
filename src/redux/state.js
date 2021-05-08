@@ -41,7 +41,7 @@ export let updaeNewPostText = (NewText)=>{
     state.profile.newPostText = NewText;
     renderEntireTree();
 }
-export let subsctibe = (fun)=>{
+export let subscribe = (fun)=>{
     renderEntireTree = fun;
 }
 
