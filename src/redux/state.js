@@ -28,20 +28,7 @@ let store ={
         },
     },
     _callSubscriber(){},
-    addPost() {
-        console.log(this)
-        let newPost ={
-            id:5,
-            message:this._state.profile.newPostText,
-            likesCount:0
-        }
-        this._state.profile.posts.push(newPost);
-        this._callSubscriber();
-    },
-    updateNewPostText (NewText){
-        this._state.profile.newPostText = NewText;
-        this._callSubscriber();
-    },
+
     subscribe(fun){
         this._callSubscriber = fun;
     },
@@ -50,7 +37,25 @@ let store ={
         return store._state;
     },
 
+    dispatch(action){
+        switch (action.type) {
+            case 'ADD-POST':
+                let newPost ={
+                    id:5,
+                    message:this._state.profile.newPostText,
+                    likesCount:0
+                }
+                this._state.profile.posts.push(newPost);
+                this._state.profile.newPostText = '';
+                break;
+            case 'UPDATE_POST_TEXT':
+                this._state.profile.newPostText = action.NewText;
+                break;
+            default: break;
+        }
 
+        this._callSubscriber();
+    }
 
 
 }
