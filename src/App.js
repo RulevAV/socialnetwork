@@ -13,7 +13,7 @@ function App(props) {
         <Header/>
         <Navbar/>
         <div className={'app-wrapper-content'}>
-            <Route render={()=><Dialogs messagesPage={props.state.messagesPage} />} path="/dialogs"/>
+            <Route render={()=><Dialogs messagesPage={props.state.messagesPage} dispatch={props.dispatch} />} path="/dialogs"/>
             <Route render={()=><Profile profile={props.state.profile} dispatch={props.dispatch} />} path="/profile"/>
         </div>
     </div>

@@ -1,5 +1,7 @@
 let ADD_POST='ADD-POST';
 let UPDATE_POST_TEXT='UPDATE_POST_TEXT';
+let UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
+let SEND_MESSAGE = 'SEND_MESSAGE';
 let store ={
     _state :{
         profile:{
@@ -17,6 +19,7 @@ let store ={
                 {id: 2, message: "vcgh"},
                 {id: 3, message: "1234"},
             ],
+            newMassageBody:'asd',
             dialogs : [
                 {id: 1, name: "Andrey"},
                 {id: 2, name: "Egor"},
@@ -51,6 +54,14 @@ let store ={
             case UPDATE_POST_TEXT:
                 this._state.profile.newPostText = action.NewText;
                 break;
+            case UPDATE_NEW_MESSAGE_BODY:
+                this._state.messagesPage.newMassageBody=action.NewText;
+                break;
+            case SEND_MESSAGE:
+                this._state.messagesPage.message.push({
+                    id:5,
+                    message:this._state.messagesPage.newMassageBody});
+                this._state.messagesPage.newMassageBody='';
             default: break;
         }
 
@@ -72,6 +83,21 @@ export let UpdatePostTextAction =(text)=>{
         NewText:text
     }
 }
+
+export let SendMessageAction =()=>{
+    return {
+        type : SEND_MESSAGE,
+    }
+}
+export let UpdateMessageTextAction =(text)=>{
+    return {
+        type : UPDATE_NEW_MESSAGE_BODY,
+        NewText:text
+    }
+}
+
+
+
 
 export default store;
 
