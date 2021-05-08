@@ -1,7 +1,7 @@
-let ADD_POST='ADD-POST';
-let UPDATE_POST_TEXT='UPDATE_POST_TEXT';
-let UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
-let SEND_MESSAGE = 'SEND_MESSAGE';
+import {dialogsReducer} from "./dialogs-reducer";
+import {profileReducer} from "./profile-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
+
 let store ={
     _state :{
         profile:{
@@ -29,6 +29,7 @@ let store ={
                 {id: 6, name: "Victor"},
             ],
         },
+        sidebar:{}
     },
     _callSubscriber(){},
 
@@ -41,29 +42,9 @@ let store ={
     },
 
     dispatch(action){
-        switch (action.type) {
-            case ADD_POST:
-                let newPost ={
-                    id:5,
-                    message:this._state.profile.newPostText,
-                    likesCount:0
-                }
-                this._state.profile.posts.push(newPost);
-                this._state.profile.newPostText = '';
-                break;
-            case UPDATE_POST_TEXT:
-                this._state.profile.newPostText = action.NewText;
-                break;
-            case UPDATE_NEW_MESSAGE_BODY:
-                this._state.messagesPage.newMassageBody=action.NewText;
-                break;
-            case SEND_MESSAGE:
-                this._state.messagesPage.message.push({
-                    id:5,
-                    message:this._state.messagesPage.newMassageBody});
-                this._state.messagesPage.newMassageBody='';
-            default: break;
-        }
+        this._state.profile=profileReducer(this._state.profile,action);
+        this._state.messagesPage = dialogsReducer(this._state.messagesPage,action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar,action);
 
         this._callSubscriber();
     }
@@ -71,30 +52,6 @@ let store ={
 
 }
 
-
-export let addPostAction =()=>{
-    return {
-        type : ADD_POST,
-    }
-}
-export let UpdatePostTextAction =(text)=>{
-    return {
-        type : UPDATE_POST_TEXT,
-        NewText:text
-    }
-}
-
-export let SendMessageAction =()=>{
-    return {
-        type : SEND_MESSAGE,
-    }
-}
-export let UpdateMessageTextAction =(text)=>{
-    return {
-        type : UPDATE_NEW_MESSAGE_BODY,
-        NewText:text
-    }
-}
 
 
 
