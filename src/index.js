@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state, {addPost, AddRenderEntireTree, updaeNewPostText} from './redux/state';
+import state, {addPost, subsctibe, updaeNewPostText} from './redux/state';
 
 
 let renderEntireTree = ()=>{
@@ -12,7 +12,7 @@ let renderEntireTree = ()=>{
     );
 }
 
-AddRenderEntireTree(renderEntireTree);
+subsctibe(renderEntireTree);
 
 renderEntireTree();
 
