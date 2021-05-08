@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import state, {addPost,AddRenderEntireTree} from './redux/state';
+import state, {addPost, AddRenderEntireTree, updaeNewPostText} from './redux/state';
 
 
 let renderEntireTree = ()=>{
-    ReactDOM.render(<App state={state} addPost={addPost} />,
+    ReactDOM.render(<App state={state} addPost={addPost} updaeNewPostText={updaeNewPostText}/>,
         document.getElementById('root')
     );
 }
