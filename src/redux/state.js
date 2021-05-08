@@ -1,5 +1,5 @@
-
-
+let ADD_POST='ADD-POST';
+let UPDATE_POST_TEXT='UPDATE_POST_TEXT';
 let store ={
     _state :{
         profile:{
@@ -39,7 +39,7 @@ let store ={
 
     dispatch(action){
         switch (action.type) {
-            case 'ADD-POST':
+            case ADD_POST:
                 let newPost ={
                     id:5,
                     message:this._state.profile.newPostText,
@@ -48,7 +48,7 @@ let store ={
                 this._state.profile.posts.push(newPost);
                 this._state.profile.newPostText = '';
                 break;
-            case 'UPDATE_POST_TEXT':
+            case UPDATE_POST_TEXT:
                 this._state.profile.newPostText = action.NewText;
                 break;
             default: break;
@@ -61,7 +61,17 @@ let store ={
 }
 
 
-
+export let addPostAction =()=>{
+    return {
+        type : ADD_POST,
+    }
+}
+export let UpdatePostTextAction =(text)=>{
+    return {
+        type : UPDATE_POST_TEXT,
+        NewText:text
+    }
+}
 
 export default store;
 
