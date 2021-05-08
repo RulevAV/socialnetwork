@@ -2,15 +2,22 @@ import React from 'react';
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
-    let posts = props.posts.map(p => <Post messege ={p.message} likesCount={p.likesCount} />);
+    let posts = props.posts.map(p => <Post message ={p.message} likesCount={p.likesCount} />);
+    let newPostElemen = React.createRef();
+
+    let addPost =()=>{
+        let text = newPostElemen.current.value;
+        props.addPost(text);
+    }
+
     return <div>
-        My post
+        <h3>My post</h3>
         <div>
             <div>
-                <textarea></textarea>
+                <textarea ref={newPostElemen}></textarea>
             </div>
             <div>
-                <button>Add post</button>
+                <button onClick={addPost}>Add post</button>
             </div>
         </div>
         {posts}

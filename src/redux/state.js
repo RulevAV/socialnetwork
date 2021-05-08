@@ -1,5 +1,6 @@
-let state =
-{
+let renderEntireTree;
+
+let state ={
     profile:{
         posts : [
             {id: 1, message: "hi, my friend", likesCount: 15},
@@ -26,4 +27,20 @@ let state =
 
 }
 
+export let addPost = (postMessage)=>{
+    let newPost ={
+        id:5,
+        message:postMessage,
+        likesCount:0
+    }
+    state.profile.posts.push(newPost);
+    renderEntireTree();
+}
+
+export let AddRenderEntireTree = (fun)=>{
+    renderEntireTree = fun;
+}
+
 export default state;
+
+window.state=state;
