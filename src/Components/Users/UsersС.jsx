@@ -5,14 +5,39 @@ import * as axios from "axios";
 class UsersC extends React.Component{
     constructor() {
         super();
-        alert('new')
-        axios.get('https://localhost:44304/api/User').then(response =>{
+
+    }
+    componentDidMount() {//ds
+        axios.get(`https://localhost:44304/api/User?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response =>{
             this.props.setUsers(response.data)
         });
     }
 
+    onPageChanget = (pageNamber) =>{
+        this.props.setCurrnePage(pageNamber);
+        axios.get(`https://localhost:44304/api/User?page=${pageNamber}&count=${this.props.pageSize}`).then(response =>{
+            this.props.setUsers(response.data)
+        });
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+    }
+
+
     render() {
+
+        let pageCount = Math.ceil(this.props.totalUsersCount/this.props.pageSize);
+
+        let pages = [];
+        for (let i=1;i<=pageCount;i++)
+        {
+                pages.push(<spam  onClick={(e)=>{this.onPageChanget(i)}} className={this.props.currentPage===i && s.selectedPage}>{i}</spam>);
+        }
         return <div>
+            <div>
+                {pages}
+            </div>
             {
                 this.props.users.map(u=><div key={u.id}>
             <span>

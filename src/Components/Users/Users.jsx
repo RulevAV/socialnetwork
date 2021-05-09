@@ -4,7 +4,6 @@ import userPhoto from '../../assets/images/user.png'
 let Users = (props) =>{
     let geUsers = ()=>{
             axios.get('https://localhost:44304/api/User').then(response =>{
-                console.log(response.data);
                 props.setUsers(response.data)
             });
     }
