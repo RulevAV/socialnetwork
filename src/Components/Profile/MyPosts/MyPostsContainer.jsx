@@ -2,6 +2,8 @@ import React from 'react';
 import {addPostAction, UpdatePostTextAction} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import StoreContext from "../../../StoreContext";
+import {SendMessageAction, UpdateMessageTextAction} from "../../../redux/dialogs-reducer";
+import {connect} from "react-redux";
 
 const MyPostsContainer = (props) => {
 
@@ -23,5 +25,25 @@ const MyPostsContainer = (props) => {
     }
     </StoreContext.Consumer>
 }
+let mapStateToProps = (state)=>{
+    //let state = store.getState();
+    return {
+        posts:state.profilePage.posts,
+        newPostText:state.profilePage.newPostText,
+    }
+};
+let mapDispatchToProps = (dispatch)=>{
+    return{
+        addPost (){
+            dispatch(addPostAction());
+        },
+        PostChange (text) {
+            dispatch(UpdatePostTextAction(text));
+        }
 
-export default MyPostsContainer;
+    }
+};
+
+const SuperDialogsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts);
+
+export default SuperDialogsContainer;

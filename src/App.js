@@ -9,7 +9,7 @@ import DialogsConainer from "./Components/Dialogs/DialogsConainer";
 function App(props) {
 
   return (
-      <BrowserRouter>
+
     <div className="app-wrapper">
         <Header/>
         <Navbar/>
@@ -18,7 +18,7 @@ function App(props) {
             <Route render={()=><Profile/>} path="/profile"/>
         </div>
     </div>
-      </BrowserRouter>
+
   );
 }
 
