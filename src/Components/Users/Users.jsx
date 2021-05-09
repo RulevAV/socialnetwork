@@ -2,16 +2,19 @@ import s from "./users.module.css";
 import * as axios from "axios";
 import userPhoto from '../../assets/images/user.png'
 let Users = (props) =>{
-    if(props.users.length ===0)
-    {
-        axios.get('https://localhost:44304/api/User').then(response =>{
-            console.log(response.data);
-            props.setUsers(response.data)
-        });
+    let geUsers = ()=>{
+            axios.get('https://localhost:44304/api/User').then(response =>{
+                console.log(response.data);
+                props.setUsers(response.data)
+            });
     }
 
 
-    return <div>{
+
+    return <div>
+        <button onClick={geUsers}>GetUsers</button>
+
+        {
         props.users.map(u=><div key={u.id}>
             <span>
                 <div>
