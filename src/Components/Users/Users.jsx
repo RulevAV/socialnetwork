@@ -1,13 +1,21 @@
 import s from "./users.module.css";
-
+import * as axios from "axios";
+import userPhoto from '../../assets/images/user.png'
 let Users = (props) =>{
+    if(props.users.length ===0)
+    {
+        axios.get('https://localhost:44304/api/User').then(response =>{
+            console.log(response.data);
+            props.setUsers(response.data)
+        });
+    }
 
 
     return <div>{
         props.users.map(u=><div key={u.id}>
             <span>
                 <div>
-                    <img className={s.userPhoto} src={u.photoURl}/>
+                    <img className={s.userPhoto} src={u.photoSmall != null?u.photoSmall:userPhoto}/>
                 </div>
                 <div>
                     {u.followed?
@@ -20,13 +28,10 @@ let Users = (props) =>{
             </span>
             <span>
                 <span>
-                    <div>{u.fullName}</div>
+                    <div>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
-                 <span>
-                   <div>{u.location.city}</div>
-                    <div>{u.location.country}</div>
-                </span>
+
             </span>
         </div>)
     }</div>
