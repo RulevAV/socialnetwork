@@ -24,13 +24,15 @@ export const dialogsReducer = (state=initialState,action) => {
             newState.newMassageBody=action.NewText;
             return newState;}
         case SEND_MESSAGE:{
-            let newState = {...state};
-            newState.message = [...state.message]
-            newState.message.push({
+            let messag = {
                 id:5,
-                message:state.newMassageBody});
-            newState.newMassageBody='';
-            return newState;}
+                message:state.newMassageBody};
+            return {
+                ...state,
+                message : [...state.message,messag],
+                newMassageBody :'',
+            };
+        }
         default: return state;
     }
 }
