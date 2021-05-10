@@ -1,20 +1,20 @@
 import s from "./users.module.css";
-import * as axios from "axios";
 import userPhoto from '../../assets/images/user.png'
+import React from "react";
 let Users = (props) =>{
-    let geUsers = ()=>{
-            axios.get('https://localhost:44304/api/User').then(response =>{
-                props.setUsers(response.data)
-            });
+    let pageCount = Math.ceil(props.totalUsersCount/props.pageSize);
+
+    let pages = [];
+    for (let i=1;i<=pageCount;i++)
+    {
+        pages.push(<spam  onClick={(e)=>{props.onPageChanget(i)}} className={props.currentPage===i && s.selectedPage}>{i}</spam>);
     }
-
-
-
     return <div>
-        <button onClick={geUsers}>GetUsers</button>
-
+        <div>
+            {pages}
+        </div>
         {
-        props.users.map(u=><div key={u.id}>
+            props.users.map(u=><div key={u.id}>
             <span>
                 <div>
                     <img className={s.userPhoto} src={u.photoSmall != null?u.photoSmall:userPhoto}/>
@@ -24,19 +24,19 @@ let Users = (props) =>{
                         <button onClick={()=>{
                             props.unfollow(u.id)}}>UnFollow</button>:
                         <button onClick={()=>{props.follow(u.id)}} >Follow</button>
-                        }
+                    }
 
                 </div>
             </span>
-            <span>
+                <span>
                 <span>
                     <div>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
 
             </span>
-        </div>)
-    }</div>
+            </div>)
+        }</div>
 }
 
 export default Users;
