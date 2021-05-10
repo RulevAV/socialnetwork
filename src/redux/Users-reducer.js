@@ -2,12 +2,13 @@ let FOLLOW='FOLLOW';
 let ONFOLLOW ='ONFOLLOW';
 let SET_USERS = 'SET_USERS';
 let SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-
+let TOGLE_IS_FETCHING = 'TOGLE_IS_FETCHING';
 let initialState ={
         users : [],
         pageSize:5,
         totalUsersCount:0,
-        currentPage:1
+        currentPage:1,
+        isFetching:false
 
 };
 export const usersReducer = (state=initialState,action) => {
@@ -43,6 +44,9 @@ export const usersReducer = (state=initialState,action) => {
         case SET_CURRENT_PAGE:{
             return {...state,currentPage :action.page}
         }
+        case TOGLE_IS_FETCHING:{
+            return {...state,isFetching :action.isFetching}
+        }
         default: return state;
     }
 
@@ -70,5 +74,11 @@ export let setCurrentPageAC =(page)=>{
     return {
         type : SET_CURRENT_PAGE,
         page
+    }
+}
+export let TogleIsFetchingAC =(isFetching)=>{
+    return {
+        type : TOGLE_IS_FETCHING,
+        isFetching
     }
 }
