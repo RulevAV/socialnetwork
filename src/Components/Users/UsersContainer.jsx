@@ -57,6 +57,8 @@ let mapStateToProps = (state)=>{
         isFetching:state.usersPage.isFetching
     }
 };
+
+
 let mapDispatchToProps = (dispatch)=>{
     return{
         follow(userId){
@@ -78,6 +80,13 @@ let mapDispatchToProps = (dispatch)=>{
     }
 };
 
-const UsersContainer = connect(mapStateToProps,mapDispatchToProps)(UsersConainer);
+const UsersContainer = connect(mapStateToProps,{
+    follow : followAC,
+    unfollow:unfollowAC,
+    setUsers:setUsersAC,
+    setCurrnePage:setCurrentPageAC,
+    TogleIsFetching:TogleIsFetchingAC
+
+})(UsersConainer);
 
 export default UsersContainer;
