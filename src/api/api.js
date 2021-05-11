@@ -63,7 +63,7 @@ export const AuthAPI = {
             url: 'https://localhost:44329/api/user/token/',
             data: {
                 "Email" : "user@secureapi.com",
-                "Password" :"Pa$$w0rd."
+                "Password" :"Pa$$w0rd.."
             },
         })
             .then(response =>{
