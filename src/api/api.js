@@ -9,7 +9,7 @@ export const usersAPI = {
         return axios.get(`https://localhost:44304/api/User?page=${currentPage}&count=${pageSize}`)
             .then(response =>{return response.data });
     },
-    Follow : (currentPage,pageSize) =>{
+    Follow : (userId) =>{
         return  axios({
             method: 'post',
             url: 'https://localhost:44329/api/user/token/',
@@ -19,7 +19,7 @@ export const usersAPI = {
             },
         })
                 .then(response =>{
-           return axios.delete(`https://localhost:44304/api/Follow/3`,{
+           return axios.delete(`https://localhost:44304/api/Follow/${userId}`,{
                 headers: {
                     'Authorization': 'Bearer ' + response.data.token
                 }
@@ -29,7 +29,7 @@ export const usersAPI = {
                 return response;
             });
     },
-    UnFollow : (currentPage,pageSize) =>{
+    UnFollow : (userId) =>{
         return  axios({
             method: 'post',
             url: 'https://localhost:44329/api/user/token/',
@@ -39,7 +39,7 @@ export const usersAPI = {
             },
         })
             .then(response =>{
-                return axios.post(`https://localhost:44304/api/Follow/3`,{
+                return axios.post(`https://localhost:44304/api/Follow/${userId}`,{
                     headers: {
                         'Authorization': 'Bearer ' + response.data.token
                     }
@@ -48,33 +48,33 @@ export const usersAPI = {
             .then(response =>{
                 return response;
             });
+    },
+
+    getProfile : (userId)=>{
+       return axios.get(`https://localhost:44304/api/profile/${userId}`);
+
+    }
+}
+
+export const AuthAPI = {
+    me : () => {
+        return  axios({
+            method: 'post',
+            url: 'https://localhost:44329/api/user/token/',
+            data: {
+                "Email" : "user@secureapi.com",
+                "Password" :"Pa$$w0rd."
+            },
+        })
+            .then(response =>{
+            return axios.get(`https://localhost:44304/api/me`,{
+                headers: {
+                    'Authorization': 'Bearer ' + response.data.token
+                }
+            })
+        });
     }
 }
 
 
-
-
-
-/*export let getUsers = () =>{
-    axios({
-        method: 'post',
-        url: 'https://localhost:44329/api/user/token/',
-        data: {
-            "Email" : "user@secureapi.com",
-            "Password" :"Pa$$w0rd."
-        },
-    }).then(response =>{
-        axios.delete(`https://localhost:44304/api/Follow/3`,{
-            headers: {
-                'Authorization': 'Bearer ' + response.data.token
-            }
-        }).then(response =>{
-            if(response.status === 200)
-            {
-                props.unfollow(u.id)
-            }
-        });
-    });
-
-}*/
 

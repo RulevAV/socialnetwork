@@ -1,3 +1,6 @@
+import {AuthAPI, usersAPI} from "../api/api";
+import {setUserProfile} from "./profile-reducer";
+
 let SET_USER_DATA = 'SET_USER_DATE';
 
 let initialState = {
@@ -30,6 +33,22 @@ export let SetUserData =(userId,email,login)=>{
         }
     }
 }
+export const SetUserThunkCreator = () =>{
+    return (dispatch) => {
+        AuthAPI.me().then(response =>{
+            if(response.status === 200)
+            {
+                dispatch(SetUserData(response.data.userId,response.data.email,response.data.login));
+            }
+        });
+
+
+    }
+}
+
+
+
+
 export default authReducer;
 
 

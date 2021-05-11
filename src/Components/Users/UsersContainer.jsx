@@ -1,9 +1,13 @@
 import {connect} from "react-redux";
-import {followAC, setCurrentPageAC, setUsersAC, TogleIsFetchingAC, unfollowAC} from "../../redux/Users-reducer";
+import {
+    followAC, followThunkCreator,
+    getUsersThunkCreator,
+    setCurrentPageAC,
+    unfollowAC, UnfollowThunkCreator
+} from "../../redux/Users-reducer";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 
 class UsersConainer extends React.Component{
@@ -12,20 +16,22 @@ class UsersConainer extends React.Component{
 
     }
     componentDidMount() {//ds
-        this.props.TogleIsFetching(true);
+        /*this.props.TogleIsFetching(true);
         usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then(data =>{
             this.props.setUsers(data);
             this.props.TogleIsFetching(false);
-        })
+        })*/
+        this.props.getUsersThunkCreator(this.props.currentPage,this.props.pageSize);
     }
 
     onPageChanget = (pageNamber) =>{
-        this.props.setCurrnePage(pageNamber);
+        /*this.props.setCurrnePage(pageNamber);
         this.props.TogleIsFetching(true);
         usersAPI.getUsers(pageNamber,this.props.pageSize).then(data =>{
             this.props.setUsers(data);
             this.props.TogleIsFetching(false);
-        });
+        });*/
+        this.props.getUsersThunkCreator(pageNamber,this.props.pageSize);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -42,8 +48,8 @@ class UsersConainer extends React.Component{
                    onPageChanget={this.onPageChanget}
                    currentPage={this.props.currentPage}
                    users={this.props.users}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}/>
+                   follow={this.props.followThunkCreator}
+                   unfollow={this.props.UnfollowThunkCreator}/>
         </>
 
     }
@@ -59,34 +65,13 @@ let mapStateToProps = (state)=>{
     }
 };
 
-
-let mapDispatchToProps = (dispatch)=>{
-    return{
-        follow(userId){
-            dispatch(followAC(userId));
-        },
-        unfollow(userId){
-            dispatch(unfollowAC(userId));
-        },
-        setUsers(users){
-            dispatch(setUsersAC(users));
-        },
-        setCurrnePage(users){
-            dispatch(setCurrentPageAC(users));
-        },
-        TogleIsFetching(isFetching){
-            dispatch(TogleIsFetchingAC(isFetching));
-        },
-
-    }
-};
-
 const UsersContainer = connect(mapStateToProps,{
     follow : followAC,
     unfollow:unfollowAC,
-    setUsers:setUsersAC,
     setCurrnePage:setCurrentPageAC,
-    TogleIsFetching:TogleIsFetchingAC
+    getUsersThunkCreator,
+    followThunkCreator,
+    UnfollowThunkCreator
 
 })(UsersConainer);
 

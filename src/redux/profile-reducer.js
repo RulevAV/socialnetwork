@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {followAC, TogleIsFetchingAC} from "./Users-reducer";
+
 let ADD_POST='ADD-POST';
 let UPDATE_POST_TEXT='UPDATE_POST_TEXT';
 let SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -57,5 +60,14 @@ export let setUserProfile = profile =>{
     }
 }
 
+export const GetUserThunkCreator = (userId) =>{
+    return (dispatch) => {
+        userId = userId===undefined?3:userId;
+        usersAPI.getProfile(userId).then(response =>{
+            dispatch(setUserProfile(response.data));
+        });
+
+    }
+}
 
 

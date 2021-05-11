@@ -2,7 +2,6 @@ import s from "./users.module.css";
 import userPhoto from '../../assets/images/user.png'
 import React from "react";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
 import {usersAPI} from "../../api/api";
 
 let Users = (props) =>{
@@ -28,25 +27,12 @@ let Users = (props) =>{
                 <div>
                     {u.followed?
                         <button onClick={()=>{
-                            usersAPI.Follow(`Follow/${u.id}`).then(response =>{
-                                    if(response.status === 200)
-                                    {
-                                        props.unfollow(u.id)
-                                    }
-                                });
-                            //props.unfollow(u.id)
+                            props.unfollow(u.id);
 
                         }}>UnFollow</button>:
                         <button onClick={()=>{
-                            usersAPI.UnFollow(`Follow/${u.id}`).then(response =>{
-                                if(response.status === 200)
-                                    {
-                                        props.follow(u.id)
-                                    }
-                                });
+                            props.follow(u.id);
 
-
-                           //
                         }} >Follow</button>
                     }
 
