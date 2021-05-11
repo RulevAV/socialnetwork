@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 let FOLLOW='FOLLOW';
 let ONFOLLOW ='ONFOLLOW';
 let SET_USERS = 'SET_USERS';
@@ -80,5 +82,45 @@ export let TogleIsFetchingAC =(isFetching)=>{
     return {
         type : TOGLE_IS_FETCHING,
         isFetching
+    }
+}
+
+
+
+//React-thunk
+export const getUsersThunkCreator = (currentPage,pageSize) =>{
+    return (dispatch) => {
+        dispatch(TogleIsFetchingAC(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setUsersAC(data));
+            dispatch(TogleIsFetchingAC(false))
+        });
+    }
+}
+export const followThunkCreator = (id) =>{
+    return (dispatch) => {
+
+        dispatch(TogleIsFetchingAC(true))
+        usersAPI.Follow(`Follow/${id}`).then(response =>{
+            if(response.status === 200)
+            {
+                //unfollowAC(id);
+                dispatch(followAC(id));
+                dispatch(TogleIsFetchingAC(false))
+            }
+        });
+
+    }
+}
+export const UnfollowThunkCreator = (id) =>{
+    return (dispatch) => {
+        dispatch(TogleIsFetchingAC(true))
+        usersAPI.UnFollow(`Follow/${id}`).then(response =>{
+            if(response.status === 200)
+            {
+                dispatch(unfollowAC(id));
+                dispatch(TogleIsFetchingAC(false))
+            }
+        });
     }
 }
