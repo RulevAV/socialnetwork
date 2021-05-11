@@ -1,9 +1,10 @@
 import {connect} from "react-redux";
 import {followAC, setCurrentPageAC, setUsersAC, TogleIsFetchingAC, unfollowAC} from "../../redux/Users-reducer";
 import React from "react";
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
+
 
 class UsersConainer extends React.Component{
     constructor() {
@@ -12,17 +13,17 @@ class UsersConainer extends React.Component{
     }
     componentDidMount() {//ds
         this.props.TogleIsFetching(true);
-        axios.get(`https://localhost:44304/api/User?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response =>{
-            this.props.setUsers(response.data)
+        usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then(data =>{
+            this.props.setUsers(data);
             this.props.TogleIsFetching(false);
-        });
+        })
     }
 
     onPageChanget = (pageNamber) =>{
         this.props.setCurrnePage(pageNamber);
         this.props.TogleIsFetching(true);
-        axios.get(`https://localhost:44304/api/User?page=${pageNamber}&count=${this.props.pageSize}`).then(response =>{
-            this.props.setUsers(response.data)
+        usersAPI.getUsers(pageNamber,this.props.pageSize).then(data =>{
+            this.props.setUsers(data);
             this.props.TogleIsFetching(false);
         });
     }
