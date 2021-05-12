@@ -9,6 +9,7 @@ import React from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {WithAuthRedirect} from "../hoc/AuthRedirect";
+import {compose} from "redux";
 
 
 class UsersConainer extends React.Component{
@@ -77,5 +78,18 @@ const UsersContainer = WithAuthRedirect(connect(mapStateToProps,{
     UnfollowThunkCreator
 
 })(UsersConainer));
+
+var Pcompose = compose(
+    WithAuthRedirect,
+    connect(mapStateToProps,{
+        follow : followAC,
+        unfollow:unfollowAC,
+        setCurrnePage:setCurrentPageAC,
+        getUsersThunkCreator,
+        followThunkCreator,
+        UnfollowThunkCreator
+
+    })
+)(UsersConainer)
 
 export default UsersContainer;
