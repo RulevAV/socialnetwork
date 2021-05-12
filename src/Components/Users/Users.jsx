@@ -11,7 +11,6 @@ let Users = (props) =>{
     {
         pages.push(<spam  onClick={(e)=>{props.onPageChanget(i)}} className={props.currentPage===i && s.selectedPage}>{i}</spam>);
     }
-
     return <div>
         <div>
             {pages}
@@ -26,13 +25,25 @@ let Users = (props) =>{
                     </NavLink>
                     </div>
                 <div>
-                    {u.followed?
-                        <button onClick={()=>{
+                    {
+                        u.i === true?
+                            <button onClick={()=>{
                             props.unfollow(u.id);
-                        }}>UnFollow</button>:
-                        <button onClick={()=>{
-                            props.follow(u.id);
-                        }} >Follow</button>
+                        }}>  {u.y===true?
+                                "Удалить из друзей"
+                                :"Отписаться"
+
+                        }</button>
+
+                            :<button onClick={()=>{
+                                props.follow(u.id);
+                            }} >{
+                                u.y===true?
+                                    "Подтвердить дружбу":
+                                    "Добавить в друзья"
+
+                            }</button>
+
                     }
 
                 </div>

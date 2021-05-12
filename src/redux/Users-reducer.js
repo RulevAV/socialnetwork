@@ -21,7 +21,7 @@ export const usersReducer = (state=initialState,action) => {
                 ...state,
                 users:state.users.map(u=>{
                     if (u.id===action.userId){
-                        return {...u,followed:true}
+                        return {...u,i:true}
                     }
                     return u;
                 })
@@ -29,11 +29,13 @@ export const usersReducer = (state=initialState,action) => {
             return stateCopy;
         }
         case ONFOLLOW:{
+
             let stateCopy = {
                 ...state,
                 users:state.users.map(u=>{
                     if (u.id===action.userId)
-                        return {...u,followed:false}
+                        console.log(u);
+                        return {...u,i:false}
                     return u;
                 })
             }
@@ -120,7 +122,6 @@ export const UnfollowThunkCreator = (id) =>{
             if(response.status === 200)
             {
                 if(response.data===true) {
-                    console.log(id)
                     dispatch(unfollowAC(id));
                 }
                 dispatch(TogleIsFetchingAC(false))
