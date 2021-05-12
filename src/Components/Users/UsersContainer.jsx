@@ -8,6 +8,7 @@ import {
 import React from "react";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
+import {WithAuthRedirect} from "../hoc/AuthRedirect";
 
 
 class UsersConainer extends React.Component{
@@ -65,7 +66,9 @@ let mapStateToProps = (state)=>{
     }
 };
 
-const UsersContainer = connect(mapStateToProps,{
+
+//способ 2
+const UsersContainer = WithAuthRedirect(connect(mapStateToProps,{
     follow : followAC,
     unfollow:unfollowAC,
     setCurrnePage:setCurrentPageAC,
@@ -73,6 +76,6 @@ const UsersContainer = connect(mapStateToProps,{
     followThunkCreator,
     UnfollowThunkCreator
 
-})(UsersConainer);
+})(UsersConainer));
 
 export default UsersContainer;

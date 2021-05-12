@@ -1,5 +1,4 @@
-import {AuthAPI, usersAPI} from "../api/api";
-import {setUserProfile} from "./profile-reducer";
+import {AuthAPI} from "../api/api";
 
 let SET_USER_DATA = 'SET_USER_DATE';
 

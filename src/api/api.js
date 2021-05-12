@@ -6,8 +6,24 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers : (currentPage,pageSize) =>{
-        return axios.get(`https://localhost:44304/api/User?page=${currentPage}&count=${pageSize}`)
-            .then(response =>{return response.data });
+        return  axios({
+            method: 'post',
+            url: 'https://localhost:44329/api/user/token/',
+            data: {
+                "Email" : "user@secureapi.com",
+                "Password" :"Pa$$w0rd."
+            },
+        }).then(response =>{
+            return axios.get(`https://localhost:44304/api/Users?page=${currentPage}&count=${pageSize}`,{
+                headers: {
+                    'Authorization': 'Bearer ' + response.data.token
+                }
+            })
+        }) .then(response =>{
+
+            return response.data });
+
+
     },
     Follow : (userId) =>{
         return  axios({
@@ -19,11 +35,17 @@ export const usersAPI = {
             },
         })
                 .then(response =>{
-           return axios.delete(`https://localhost:44304/api/Follow/${userId}`,{
-                headers: {
-                    'Authorization': 'Bearer ' + response.data.token
-                }
-            })
+                   var authOptions = {
+                       method: 'POST',
+                       url: 'https://localhost:44304/api/Users/'+userId,
+                       headers: {
+                           'Authorization': 'Bearer ' + response.data.token,
+                           'Content-Type': 'application/x-www-form-urlencoded'
+                       },
+                       json: true
+                   };
+                    return  axios(authOptions);
+
         })
                 .then(response =>{
                 return response;
@@ -39,11 +61,17 @@ export const usersAPI = {
             },
         })
             .then(response =>{
-                return axios.post(`https://localhost:44304/api/Follow/${userId}`,{
+
+                var authOptions = {
+                    method: 'DELETE',
+                    url: 'https://localhost:44304/api/Users/'+userId,
                     headers: {
-                        'Authorization': 'Bearer ' + response.data.token
-                    }
-                })
+                        'Authorization': 'Bearer ' + response.data.token,
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    json: true
+                };
+                return  axios(authOptions);
             })
             .then(response =>{
                 return response;
@@ -63,10 +91,11 @@ export const AuthAPI = {
             url: 'https://localhost:44329/api/user/token/',
             data: {
                 "Email" : "user@secureapi.com",
-                "Password" :"Pa$$w0rd.."
+                "Password" :"Pa$$w0rd."
             },
         })
             .then(response =>{
+
             return axios.get(`https://localhost:44304/api/me`,{
                 headers: {
                     'Authorization': 'Bearer ' + response.data.token

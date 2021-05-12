@@ -101,11 +101,12 @@ export const followThunkCreator = (id) =>{
     return (dispatch) => {
 
         dispatch(TogleIsFetchingAC(true))
-        usersAPI.Follow(`Follow/${id}`).then(response =>{
+        usersAPI.Follow(`${id}`).then(response =>{
             if(response.status === 200)
             {
-                //unfollowAC(id);
-                dispatch(followAC(id));
+                if(response.data===true) {
+                    dispatch(followAC(id));
+                }
                 dispatch(TogleIsFetchingAC(false))
             }
         });
@@ -115,10 +116,13 @@ export const followThunkCreator = (id) =>{
 export const UnfollowThunkCreator = (id) =>{
     return (dispatch) => {
         dispatch(TogleIsFetchingAC(true))
-        usersAPI.UnFollow(`Follow/${id}`).then(response =>{
+        usersAPI.UnFollow(`${id}`).then(response =>{
             if(response.status === 200)
             {
-                dispatch(unfollowAC(id));
+                if(response.data===true) {
+                    console.log(id)
+                    dispatch(unfollowAC(id));
+                }
                 dispatch(TogleIsFetchingAC(false))
             }
         });
