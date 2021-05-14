@@ -2,19 +2,31 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {Field, reduxForm} from "redux-form";
+import {TextArrea} from "../Common/FormsControls/FormsControls";
+import {GenerationMaxSize, requiredField} from "../../utils/validators/validators";
+
+const maxLanth50 = GenerationMaxSize(50);
+
+const formMassag = (props) =>{
+    return <form onSubmit={props.handleSubmit}>
+        <div><Field placeholder={"my massage"} name={"Massage"} component={TextArrea} validate ={[requiredField,maxLanth50]}/></div>
+        <button>Send</button>
+    </form>
+}
+
+const MassagReduxForm  = reduxForm({
+    form:"Massage"
+})(formMassag);
 
 const Dialogs = (props) => {
 
     let dialogsElements = props.dialogs.map(dialog=><DialogItem name={dialog.name} id={dialog.id}/>);
     let messages = props.message.map(dialog=><Message message={dialog.message} id={dialog.id}/>);
-    let textArea = React.createRef();
 
-    let onChangeMassage = () =>{
-        let text = textArea.current.value;
-        props.ChangeMassage(text);
-    };
-    let onSend = ()=> {
-        props.Send();
+
+    let onSend = (dateForm)=> {
+        props.Send(dateForm.Massage);
     };
 
     return (
@@ -22,12 +34,8 @@ const Dialogs = (props) => {
             <div className={s.dialogsItems}>
                 {dialogsElements}
             </div>
-
             <div className={s.messages}>
-                <div>
-                    <textarea ref={textArea} value={props.newMassageBody} onChange={onChangeMassage}/>
-                </div>
-                <button onClick={onSend}>Send</button>
+                <MassagReduxForm onSubmit={onSend} />
                 {messages}
             </div>
         </div>

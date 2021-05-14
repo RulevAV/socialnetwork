@@ -7,7 +7,6 @@ let initialState = {
             {id: 2, message: "vcgh"},
             {id: 3, message: "1234"},
         ],
-        newMassageBody: 'asd',
         dialogs: [
             {id: 1, name: "Andrey"},
             {id: 2, name: "Egor"},
@@ -26,29 +25,22 @@ export const dialogsReducer = (state=initialState,action) => {
         case SEND_MESSAGE:{
             let messag = {
                 id:5,
-                message:state.newMassageBody};
+                message:action.massage};
             return {
                 ...state,
                 message : [...state.message,messag],
-                newMassageBody :'',
             };
         }
         default: return state;
     }
 }
-
-
-export let SendMessageAction =()=>{
+export let SendMessageAction =(massage)=>{
     return {
         type : SEND_MESSAGE,
+        massage
     }
 }
-export let UpdateMessageTextAction =(text)=>{
-    return {
-        type : UPDATE_NEW_MESSAGE_BODY,
-        NewText:text
-    }
-}
+
 
 
 

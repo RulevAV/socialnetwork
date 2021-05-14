@@ -13,7 +13,7 @@ const ProfileInfo = (props) => {
 
         <div className={s.descriptionBlock}>
             <img className={s.imgAva} src={ props.profile.photoLarge!==null ? "https://localhost:44304/api/Photo/"+props.profile.photoLarge:null}/>
-            <ProfileStatus status={"asdasd"}/>
+            <ProfileStatus status={props.status} UpdateStatus={props.UpdateStatus}/>
         </div>
     </div>
 }
