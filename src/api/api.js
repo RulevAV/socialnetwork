@@ -4,13 +4,15 @@ const instance = axios.create({
     baseURL:'https://localhost:44304/api/',
 });
 
+
+
 let Auth = () =>{
     return axios({
         method: 'post',
         url: 'https://localhost:44329/api/user/token/',
         data: {
             "Email" : "user@secureapi.com",
-            "Password" :"Pa$$w0rd."
+            "Password" :"Pa$$w0rd.."
         },
     });
 }
@@ -121,6 +123,18 @@ export const AuthAPI = {
                 }
             })
         });
+    },
+    Login: (email, password,rememberMy)=>{
+
+        return axios({
+            method: 'post',
+            url: 'https://localhost:44329/api/user/token/',
+            data: {
+                "Email" : "user@secureapi.com",
+                "Password" :"Pa$$w0rd.."
+            },
+        });
+
     }
 }
 
