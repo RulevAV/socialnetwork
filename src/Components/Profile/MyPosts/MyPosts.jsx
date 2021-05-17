@@ -23,20 +23,25 @@ const ProfileReduxForm = reduxForm({
 })(ProfileForm)
 
 
+class MyPosts extends React.Component {
 
-
-const MyPosts = (props) => {
-
-    let posts = props.posts.map(p => <Post message ={p.message} likesCount={p.likesCount} />);
-
-    const onSubmit = (formData) =>{
-        props.addPost(formData.post);
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        return prevProps!==this.props || prevState !==this.state;
     }
-    return <div>
-        <h3>My post</h3>
-        <ProfileReduxForm onSubmit={onSubmit} />
-        {posts}
-    </div>
+
+    render() {
+
+        let posts = this.props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>);
+
+        const onSubmit = (formData) => {
+            this.props.addPost(formData.post);
+        }
+        return <div>
+            <h3>My post</h3>
+            <ProfileReduxForm onSubmit={onSubmit}/>
+            {posts}
+        </div>
+    }
 }
 
 export default MyPosts;
