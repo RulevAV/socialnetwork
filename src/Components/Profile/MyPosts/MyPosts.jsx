@@ -23,11 +23,8 @@ const ProfileReduxForm = reduxForm({
 })(ProfileForm)
 
 
-class MyPosts extends React.Component {
+class MyPosts extends React.PureComponent {
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        return prevProps!==this.props || prevState !==this.state;
-    }
 
     render() {
 
