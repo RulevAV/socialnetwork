@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 class ProfileStatus extends React.Component{
     state = {
         editMode:false,
@@ -57,6 +57,11 @@ const ProfileStatusHook = (props)=>{
 
     let [editMode,SetEditMode] = useState(false);
     let [status,Setstatus] = useState(props.status);
+
+    useEffect(()=>{
+        Setstatus(props.status);
+    },[props.status])
+
     const activeMode = () =>{
         SetEditMode(true);
     }
