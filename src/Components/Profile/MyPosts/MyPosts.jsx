@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
 import {GenerationMaxSize, requiredField} from "../../../utils/validators/validators";
@@ -23,22 +23,18 @@ const ProfileReduxForm = reduxForm({
 })(ProfileForm)
 
 
-class MyPosts extends React.PureComponent {
+const MyPosts = memo(props => {
 
+    let posts = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>);
 
-    render() {
-
-        let posts = this.props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>);
-
-        const onSubmit = (formData) => {
-            this.props.addPost(formData.post);
-        }
-        return <div>
-            <h3>My post</h3>
-            <ProfileReduxForm onSubmit={onSubmit}/>
-            {posts}
-        </div>
+    const onSubmit = (formData) => {
+        props.addPost(formData.post);
     }
-}
+    return <div>
+        <h3>My post</h3>
+        <ProfileReduxForm onSubmit={onSubmit}/>
+        {posts}
+    </div>
+});
 
 export default MyPosts;
