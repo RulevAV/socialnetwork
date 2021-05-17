@@ -10,6 +10,13 @@ import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
 import {WithAuthRedirect} from "../hoc/AuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersSuperSelector
+} from "../../redux/users-selectors";
 
 
 class UsersConainer extends React.Component{
@@ -59,11 +66,11 @@ class UsersConainer extends React.Component{
 
 let mapStateToProps = (state)=>{
     return {
-        users: state.usersPage.users,
-        pageSize:state.usersPage.pageSize,
-        totalUsersCount:state.usersPage.totalUsersCount,
-        currentPage:state.usersPage.currentPage,
-        isFetching:state.usersPage.isFetching
+        users: getUsersSuperSelector(state),
+        pageSize:getPageSize(state),
+        totalUsersCount:getTotalUsersCount(state),
+        currentPage:getCurrentPage(state),
+        isFetching:getIsFetching(state)
     }
 };
 
