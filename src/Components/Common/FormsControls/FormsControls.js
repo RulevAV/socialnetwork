@@ -10,15 +10,11 @@ export const FormControl = ({input,meta,child,...props}) =>{
 }
 
 export const TextArrea = (props) =>{
-    const  {input,meta,child,...restProps} = props;
-
-    return <div  className={s.formController+ " " + s.error} >
-        <div><textarea {...input} {...restProps}/></div>
-        {meta.touched && meta.error && <div><span >{meta.error}</span></div>}
-    </div>
+    const {input,meta,child,...restProps} = props;
+    return <FormControl {...props}> <textarea {...restProps} /></FormControl>
 }
 
 export const Input = (props) =>{
     const  {input,meta,child,...restProps} = props;
-    return<FormControl {...props}>  <input {...input} {...restProps}/></FormControl>
+    return<FormControl {...props}>  <input {...restProps}/></FormControl>
 }

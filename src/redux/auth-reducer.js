@@ -1,5 +1,4 @@
 import {AuthAPI} from "../api/api";
-import {stopSubmit} from "redux-form";
 
 let SET_USER_DATA = 'SET_USER_DATE';
 
@@ -46,19 +45,6 @@ export const SetUserThunkCreator = () =>{
     }
 }
 
-
-export const login =(email, password,rememberMy) =>(dispatch)  =>{
-
-    AuthAPI.Login(email, password,rememberMy)
-        .then(response =>{
-            console.log(response)
-        })
-        .catch(error=>{
-        let action = stopSubmit("login",{_error:"common error"});
-            console.log(dispatch)
-        dispatch(action);
-    });
-}
 
 
 

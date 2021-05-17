@@ -2,18 +2,12 @@ import React from 'react'
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../Common/FormsControls/FormsControls";
 import {requiredField} from "../../utils/validators/validators";
-import {login} from "../../redux/auth-reducer";
-import {connect} from "react-redux";
-import s from "../Common/FormsControls/FotmControls.module.css";
-const Loginform = (props) =>{
 
+const Loginform = (props) =>{
     return <form onSubmit={props.handleSubmit}>
         <div><Field placeholder={"Login"} name={"login"} validate={[requiredField]}  component={Input} /></div>
         <div><Field placeholder={"Password"} name={"password"} validate={[]}  component={Input}/></div>
         <div><Field type={"checkbox"} name={"rememberMe"} validate={[]}  component={Input}/>remember my</div>
-        {props.error && <div className={s.formSummaryError}>
-            {props.error}
-        </div>}
         <div><button >Login</button></div>
     </form>
 }
@@ -26,7 +20,7 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) =>{
     const onSubmit = (formData) =>{
-         props.login();
+        console.log(formData);
     }
     return <div>
         <hi>Login</hi>
@@ -34,9 +28,4 @@ const Login = (props) =>{
 
     </div>
 }
-
-const mapStateToProps = (state)=>({
-    isAuth: state.auth.isAuth
-})
-
-export default connect(mapStateToProps, {login})(Login);
+export default Login;
