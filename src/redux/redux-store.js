@@ -6,6 +6,9 @@ import {usersReducer} from "./Users-reducer";
 import authReducer from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form';
+import createSagaMiddleware from 'redux-saga'
+import {watchingLoadUsers} from "../api/saga";
+
 let reducer = combineReducers({
     profilePage:profileReducer,
     messagesPage:dialogsReducer,
@@ -14,9 +17,10 @@ let reducer = combineReducers({
     auth:authReducer,
     form : formReducer
 });
+let SagaMiddleware = createSagaMiddleware();
+let store = createStore(reducer,applyMiddleware(thunkMiddleware,SagaMiddleware));
 
-let store = createStore(reducer,applyMiddleware(thunkMiddleware));
-
+SagaMiddleware.run(watchingLoadUsers);
 window.store = store;
 
 export default store;

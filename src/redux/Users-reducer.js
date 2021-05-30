@@ -5,6 +5,7 @@ let ONFOLLOW ='ONFOLLOW';
 let SET_USERS = 'SET_USERS';
 let SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 let TOGLE_IS_FETCHING = 'TOGLE_IS_FETCHING';
+export let GetUsersApi ="GetUsersApi";
 let initialState ={
         users : [],
         pageSize:5,
@@ -91,6 +92,13 @@ export let TogleIsFetchingAC =(isFetching)=>{
 
 //React-thunk
 export const getUsersThunkCreator = (currentPage,pageSize) =>{
+    return {
+        type : GetUsersApi,
+        currentPage,
+        pageSize
+    }
+}
+/*export const getUsersThunkCreator = (currentPage,pageSize) =>{
     return (dispatch) => {
         dispatch(TogleIsFetchingAC(true))
         usersAPI.getUsers(currentPage, pageSize).then(data => {
@@ -98,7 +106,7 @@ export const getUsersThunkCreator = (currentPage,pageSize) =>{
             dispatch(TogleIsFetchingAC(false))
         });
     }
-}
+}*/
 export const followThunkCreator = (id) =>{
     return (dispatch) => {
 
